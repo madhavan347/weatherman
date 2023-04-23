@@ -2,7 +2,7 @@ import creds from '../creds'
 
 const appid = creds();
 
-const handleSearchNameReq = async (city, limit = 1) => {
+export const handleSearchNameReq = async (city, limit = 1) => {
     if (city == false) {
         return
     }
@@ -35,4 +35,3 @@ export const handleFinalSearch = async (lat, lon) => {
         return err.message;
     }
 }
-export default handleSearchNameReq;
