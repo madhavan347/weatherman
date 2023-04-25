@@ -27,3 +27,5 @@ dist-ssr
 scOne
 ui_insp
 src/creds.jsx
+
+src/assets/weather-icons

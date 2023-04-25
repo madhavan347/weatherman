@@ -1,16 +1,15 @@
 import './App.css'
-import { useState } from 'react'
 import TopBar from './comps/topBar';
+import RightBox from './comps/rightBox';
 
 
 const App = () => {
-  const [isQ, setIsQ] = useState('');
 
   return (
     <>
       <div className="row">
 
-        <div className="col-8 left-box">
+        <div className="col-9 left-box">
           <TopBar />
           <div className="left-bottom-box">
             <div className=" border border-danger-subtle rounded">
@@ -19,10 +18,8 @@ const App = () => {
 
           </div>
         </div>
-        <div className="right-box col-4">
-          <div className="border border-danger-subtle rounded">
-
-          </div>
+        <div className="col-3 right-box">
+          <RightBox />
         </div>
       </div>
     </>

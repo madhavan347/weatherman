@@ -1,4 +1,3 @@
-import React from 'react'
 import { handleSearchNameReq, handleFinalSearch } from './apiBed.jsx'
 const TopBar = () => {
     const handleSearchInput = async (q) => {
