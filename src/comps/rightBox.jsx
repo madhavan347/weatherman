@@ -47,8 +47,8 @@ const RightBox = () => {
                         <img src={sunImg} width={"80px"} alt="" />
                     </div>
                     <div className="col-9">
-                        <h4 className="lead" style={{ fontSize: "2rem" }}>
-                            20 UVI <mark className="rounded-5 p-1" style={{ fontSize: "1rem", color: "white", background: "green" }}>moderate</mark>
+                        <h4 className="lead">
+                            <span style={{ fontSize: "2.1rem" }}>20 UVI</span> <span className="badge rounded-pill text-bg-success p-1">moderate</span>
                             <br />
                             <p className="h6 my-2">Moderate risk of UV rays</p>
                         </h4>
@@ -66,7 +66,7 @@ const RightBox = () => {
             <WFBox icon="10n" main="haze" />
 
 
-        </div>
+        </div >
     )
 }
 

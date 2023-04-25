@@ -13,9 +13,9 @@ const TopBar = () => {
         console.log(result);
     }
     return (
-        <div className="left-top-box border border-danger-subtle rounded">
+        <div className="left-top-box">
 
-            <div className="row p-3 top-bar">
+            <div className="row p-3 mx-4 top-bar">
                 <div className="col-8 m-auto">
                     <div className='input-group'>
                         <img src="https://ouch-cdn2.icons8.com/2Cuo9HYTII6I8gBSie5nqQ9BiFH5zb7ffyWAu94ldAc/rs:fit:256:256/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvNDA3/LzY2YWY1NTEyLWEy/NDctNDlmZS1hODli/LTg4MDdkNTg3N2Nj/Yi5wbmc.png" alt="" className='rounded-circle border img-thumbnail m-2' width="50px" />
@@ -34,8 +34,8 @@ const TopBar = () => {
                         {/* <button className='btn btn-outline-dark' type="submit">Search</button> */}
                     </form>
                 </div>
-                <div className="col-1 m-auto p-auto">
-                    <button className="btn btn-light rounded-circle">
+                <div className="col-1 m-auto p-auto ">
+                    <button className="btn btn-white border border-light border-2 rounded-circle">
                         🔔
                     </button>
                 </div>
@@ -44,4 +44,4 @@ const TopBar = () => {
     )
 }
 
-export default TopBar
+export default TopBar;

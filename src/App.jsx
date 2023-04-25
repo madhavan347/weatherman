@@ -1,7 +1,7 @@
 import './App.css'
 import TopBar from './comps/topBar';
 import RightBox from './comps/rightBox';
-
+import LeftBox from './comps/leftBox';
 
 const App = () => {
 
@@ -9,12 +9,10 @@ const App = () => {
     <>
       <div className="row">
 
-        <div className="col-9 left-box">
+        <div className="col-9 left-box shadow" style={{ paddingRight: "0px" }}>
           <TopBar />
           <div className="left-bottom-box">
-            <div className=" border border-danger-subtle rounded">
-
-            </div>
+            <LeftBox />
 
           </div>
         </div>
