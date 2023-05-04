@@ -48,8 +48,7 @@ const RightBox = () => {
                     </div>
                     <div className="col-9">
                         <h4 className="lead">
-                            <span style={{ fontSize: "2.1rem" }}>20 UVI</span> <span className="badge rounded-pill text-bg-success p-1">moderate</span>
-                            <br />
+                            <span className="fs-3">20 UVI</span> <span className="badge rounded-pill text-bg-success p-1">moderate</span>
                             <p className="h6 my-2">Moderate risk of UV rays</p>
                         </h4>
                     </div>

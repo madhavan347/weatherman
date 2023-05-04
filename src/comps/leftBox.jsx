@@ -1,12 +1,14 @@
 import sunBg from "../assets/weather-images/sun-sky.jpg"
 import windBg from "../assets/weather-images/wind-img2.jpg"
+import sceneBg from "../assets/weather-images/some-scene.jpg"
+
 const dBlue = "#102038";
 const StatBox = (info) => {
     return (
-        <div className="col shadow rounded-4 text-center p-3 mx-4" style={{ background: `${info.bgcolor}` }}>
+        <div className="col-3 shadow rounded-4 text-center p-3 mx-auto" style={{ background: `${info.bgcolor}` }}>
             <div className="" style={{ color: `${info.color}` }}>
                 {info.title}
-                <div className="h4 m-auto" style={{ color: `${info.color}` }}>
+                <div className="h4 m-auto fw-medium " style={{ color: `${info.color}` }}>
                     {info.cont}
                 </div>
             </div>
@@ -15,11 +17,11 @@ const StatBox = (info) => {
 }
 const MainStatBox = (content) => {
     return (
-        <div className="col-5 card my-5 mx-5 rounded-4 p-auto border-0 shadow" style={{ backgroundImage: `url(${content.bg})`, backgroundSize: "110%" }}>
+        <div className="col-5 card my-5 mx-auto rounded-4 p-auto border-0 shadow" style={{ backgroundImage: `url(${content.bg})`, backgroundSize: "110%" }}>
 
             <div className='row'>
                 <i className={`align-items-middle col-1 my-4 fa-solid ${content.icon}`} style={{ color: "orange" }}></i>
-                <div className="h4 col-5">
+                <div className="h4 col-6">
                     {content.name}<br />
                     <small className="text-body-secondary h6">{content.subname}</small>
                 </div>
@@ -61,9 +63,27 @@ const LeftBox = () => {
 
                 <MainStatBox name="Weather" subname="What's the weather" reading="22°C" readsub="Partly Cloudy" bg={sunBg} icon="fa-cloud-sun fa-xl" />
                 <MainStatBox name="Air Quality" subname="Main Pollution: PM2.5" reading="390" readsub="West Wind" bg={windBg} icon="fa-wind fa-xl" air="true" />
-                <div className="col-6 m-auto"></div>
             </div>
-        </div>
+            <div className="row m-auto">
+                <div className="col-7 m-auto rounded-4 shadow">
+                    <div className="row">
+                        <div className="col-7 fs-3" style={{ fontWeight: 600 }}>
+                            How's the <br />temperature today?
+                        </div>
+                    </div>
+
+                </div>
+                <div className="row col-3 m-auto rounded-4 shadow"
+                    style={{
+                        height: "23rem", background: "greenyellow", backgroundImage: `url(${sceneBg})`, color: { dBlue }
+                    }}>
+                    <div className="h6 m-auto">Tomorrow</div>
+                    <div className="h3 fw-semibold mt-0">Alam Barzah</div>
+                    <div className="h2 m-auto mb-0">20°C</div>
+                    <div className="h6 m-auto mt-2">Cloudy</div>
+                </div>
+            </div>
+        </div >
     )
 }
 
