@@ -1,8 +1,45 @@
 import sunBg from "../assets/weather-images/sun-sky.jpg"
 import windBg from "../assets/weather-images/wind-img2.jpg"
 import sceneBg from "../assets/weather-images/some-scene.jpg"
+import { LineChart, Line, ResponsiveContainer, LabelList, XAxis, CartesianGrid, CartesianAxis } from "recharts";
 
 const dBlue = "#102038";
+const data = [
+    {
+        name: "20°",
+        uv: 20,
+        timing: "Morning"
+    },
+    {
+        name: "34°",
+        uv: 34,
+        timing: "Afternoon"
+    },
+    {
+        name: "28°",
+        uv: 28,
+        timing: "Evening"
+    },
+    {
+        name: "22°",
+        uv: 22,
+        timing: "Night"
+    },
+]
+const renderLineChart = (
+    <ResponsiveContainer width={750} height={200}>
+        <LineChart data={data}
+            margin={{ top: 60, right: 30, left: 40, bottom: 5 }}>
+            <CartesianAxis />
+            <XAxis dataKey={"timing"} axisLine={false} tickLine={false} />
+
+            <Line type="natural" dataKey="uv" stroke="#ffa500" strokeWidth={4} dot={{ strokeWidth: 2, fill: "orange" }}>
+                <LabelList dataKey={"name"} position={"top"} offset={45} stroke={dBlue} className="h4" fill="" />
+            </Line>
+        </LineChart>
+    </ResponsiveContainer>
+);
+
 const StatBox = (info) => {
     return (
         <div className="col-3 shadow rounded-4 text-center p-3 mx-auto" style={{ background: `${info.bgcolor}` }}>
@@ -65,13 +102,22 @@ const LeftBox = () => {
                 <MainStatBox name="Air Quality" subname="Main Pollution: PM2.5" reading="390" readsub="West Wind" bg={windBg} icon="fa-wind fa-xl" air="true" />
             </div>
             <div className="row m-auto">
-                <div className="col-7 m-auto rounded-4 shadow">
+                <div className="col-7 m-auto rounded-4" style={{ height: "23rem" }}>
                     <div className="row">
-                        <div className="col-7 fs-3" style={{ fontWeight: 600 }}>
-                            How's the <br />temperature today?
+                        <div className="col-5 fs-3" style={{ fontWeight: 600 }}>
+                            How's the temperature today?
+                        </div>
+                        <div className="row">
+                            <div className="col-md-3 offset-md-11">
+                                <button className="btn shadow text-white rounded-3" style={{ background: "orange" }}>
+                                    <i class="bi bi-thermometer-sun"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-
+                    <div className="row mt-5 pt-4">
+                        {renderLineChart}
+                    </div>
                 </div>
                 <div className="row col-3 m-auto rounded-4 shadow"
                     style={{
