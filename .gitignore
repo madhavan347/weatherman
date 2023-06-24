@@ -24,8 +24,9 @@ dist-ssr
 *.sw?
 
 #some Miscs
-scOne
+scOne.json
 ui_insp
 src/creds.jsx
-
+todo
 src/assets/weather-icons
+weather_info.json

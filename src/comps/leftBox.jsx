@@ -1,44 +1,49 @@
 import sunBg from "../assets/weather-images/sun-sky.jpg"
 import windBg from "../assets/weather-images/wind-img2.jpg"
 import sceneBg from "../assets/weather-images/some-scene.jpg"
-import { LineChart, Line, ResponsiveContainer, LabelList, XAxis, CartesianGrid, CartesianAxis } from "recharts";
+import { LineChart, Line, ResponsiveContainer, LabelList, XAxis, CartesianAxis } from "recharts";
+import wd from "../../weather_info.json";
 
 const dBlue = "#102038";
-const data = [
-    {
-        name: "20°",
-        uv: 20,
-        timing: "Morning"
-    },
-    {
-        name: "34°",
-        uv: 34,
-        timing: "Afternoon"
-    },
-    {
-        name: "28°",
-        uv: 28,
-        timing: "Evening"
-    },
-    {
-        name: "22°",
-        uv: 22,
-        timing: "Night"
-    },
-]
-const renderLineChart = (
-    <ResponsiveContainer width={750} height={200}>
-        <LineChart data={data}
-            margin={{ top: 60, right: 30, left: 40, bottom: 5 }}>
-            <CartesianAxis />
-            <XAxis dataKey={"timing"} axisLine={false} tickLine={false} />
 
-            <Line type="natural" dataKey="uv" stroke="#ffa500" strokeWidth={4} dot={{ strokeWidth: 2, fill: "orange" }}>
-                <LabelList dataKey={"name"} position={"top"} offset={45} stroke={dBlue} className="h4" fill="" />
-            </Line>
-        </LineChart>
-    </ResponsiveContainer>
-);
+const RenderLineChart = ({ foreData }) => {
+    // console.log(foreData)
+    const data = [
+        {
+            name: `${foreData[10].temp_c}°C`,
+            uv: foreData[8].temp_c,
+            timing: "Morning"
+        },
+        {
+            name: `${foreData[14].temp_c}°C`,
+            uv: foreData[14].temp_c,
+            timing: "Afternoon"
+        },
+        {
+            name: `${foreData[18].temp_c}°C`,
+            uv: foreData[18].temp_c,
+            timing: "Evening"
+        },
+        {
+            name: `${foreData[21].temp_c}°C`,
+            uv: foreData[21].temp_c,
+            timing: "Night"
+        },
+    ]
+    return (
+        <ResponsiveContainer width={750} height={200}>
+            <LineChart data={data}
+                margin={{ top: 70, right: 50, left: 40, bottom: 0 }}>
+                <CartesianAxis />
+                <XAxis dataKey={"timing"} axisLine={false} tickLine={false} />
+
+                <Line type="natural" dataKey="uv" stroke="#ffa500" strokeWidth={4} dot={{ strokeWidth: 2, fill: "orange" }}>
+                    <LabelList dataKey={"name"} position={"top"} offset={45} stroke={dBlue} className="h4" fill="" />
+                </Line>
+            </LineChart>
+        </ResponsiveContainer>
+    );
+}
 
 const StatBox = (info) => {
     return (
@@ -53,6 +58,7 @@ const StatBox = (info) => {
     )
 }
 const MainStatBox = (content) => {
+    // console.log()
     return (
         <div className="col-5 card my-5 mx-auto rounded-4 p-auto border-0 shadow" style={{ backgroundImage: `url(${content.bg})`, backgroundSize: "110%" }}>
 
@@ -66,6 +72,10 @@ const MainStatBox = (content) => {
 
             <div className="display-5 mx-3 my-4">
                 {content.reading}
+                {content.air ?
+                    <span className="h3">Km/hr</span> :
+                    <span className="display-6"> °C</span>
+                }
                 <p className=" h5 text-body-secondary">{content.readsub}</p>
             </div>
             {content.air ?
@@ -77,7 +87,7 @@ const MainStatBox = (content) => {
                         </div>
 
                         <div className="progress" role="progressbar" aria-label="Default Bar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{ height: "13px" }}>
-                            <div className="progress-bar progress-bar-striped" style={{ background: "orange", width: `21%` }}>
+                            <div className="progress-bar progress-bar-striped" style={{ background: "orange", width: `${content.airIndex["us-epa-index"] * 20}%` }}>
                             </div>
                         </div>
 
@@ -85,21 +95,21 @@ const MainStatBox = (content) => {
                 </div>
                 :
                 <div className="row">
-                    <StatBox title="Pressure" cont="800mb" bgcolor={dBlue} color="white" />
-                    <StatBox title="Visibility" cont="4.3km" bgcolor="greenyellow" color={dBlue} />
-                    <StatBox title="Humidity" cont="87%" bgcolor="white" />
+                    <StatBox title="Pressure" cont={`${content.pressure}mb`} bgcolor={dBlue} color="white" />
+                    <StatBox title="Visibility" cont={`${content.visibility}km`} bgcolor="greenyellow" color={dBlue} />
+                    <StatBox title="Humidity" cont={`${content.humidity}%`} bgcolor="white" />
                 </div>
             }
         </div>
     )
 }
-const LeftBox = () => {
+const LeftBox = ({ wthrData }) => {
     return (
-        <div className="">
+        <div className="" style={{ "height": "100%" }}>
             <div className="row m-auto">
 
-                <MainStatBox name="Weather" subname="What's the weather" reading="22°C" readsub="Partly Cloudy" bg={sunBg} icon="fa-cloud-sun fa-xl" />
-                <MainStatBox name="Air Quality" subname="Main Pollution: PM2.5" reading="390" readsub="West Wind" bg={windBg} icon="fa-wind fa-xl" air="true" />
+                <MainStatBox name="Weather" subname="What's the weather" reading={wthrData.current.temp_c} readsub={wthrData.current.condition.text} bg={sunBg} icon="fa-cloud-sun fa-xl" pressure={wthrData.current.pressure_mb} humidity={wthrData.current.humidity} visibility={wthrData.current.vis_km} />
+                <MainStatBox name="Air Quality" subname="Main Pollution: PM2.5" reading={wthrData.current.wind_kph} readsub={wd.wind_dir[wthrData.current.wind_dir]} bg={windBg} icon="fa-wind fa-xl" air="true" airIndex={wthrData.current.air_quality} />
             </div>
             <div className="row m-auto">
                 <div className="col-7 m-auto rounded-4" style={{ height: "23rem" }}>
@@ -107,16 +117,16 @@ const LeftBox = () => {
                         <div className="col-5 fs-3" style={{ fontWeight: 600 }}>
                             How's the temperature today?
                         </div>
-                        <div className="row">
+                        {/* <div className="row">
                             <div className="col-md-3 offset-md-11">
                                 <button className="btn shadow text-white rounded-3" style={{ background: "orange" }}>
-                                    <i class="bi bi-thermometer-sun"></i>
+                                    <i className="bi bi-thermometer-sun"></i>
                                 </button>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="row mt-5 pt-4">
-                        {renderLineChart}
+                        <RenderLineChart foreData={wthrData.forecast.forecastday[0].hour} />
                     </div>
                 </div>
                 <div className="row col-3 m-auto rounded-4 shadow"
@@ -125,8 +135,8 @@ const LeftBox = () => {
                     }}>
                     <div className="h6 m-auto">Tomorrow</div>
                     <div className="h3 fw-semibold mt-0">Alam Barzah</div>
-                    <div className="h2 m-auto mb-0">20°C</div>
-                    <div className="h6 m-auto mt-2">Cloudy</div>
+                    <div className="h2 m-auto mb-0">{wthrData.forecast.forecastday[1].day.avgtemp_c}°C</div>
+                    <div className="h6 m-auto mt-2">{wthrData.forecast.forecastday[1].day.condition.text}</div>
                 </div>
             </div>
         </div >
