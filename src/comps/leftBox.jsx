@@ -3,6 +3,10 @@ import windBg from "../assets/weather-images/wind-img2.jpg"
 import sceneBg from "../assets/weather-images/some-scene.jpg"
 import { LineChart, Line, ResponsiveContainer, LabelList, XAxis, CartesianAxis } from "recharts";
 import wd from "../../weather_info.json";
+import { format, setGlobalDateMasks } from "fecha"
+setGlobalDateMasks({
+    maskOne: 'MMM D ddd'
+})
 
 const dBlue = "#102038";
 
@@ -11,7 +15,7 @@ const RenderLineChart = ({ foreData }) => {
     const data = [
         {
             name: `${foreData[10].temp_c}°C`,
-            uv: foreData[8].temp_c,
+            uv: foreData[10].temp_c,
             timing: "Morning"
         },
         {
@@ -31,17 +35,15 @@ const RenderLineChart = ({ foreData }) => {
         },
     ]
     return (
-        <ResponsiveContainer width={750} height={200}>
-            <LineChart data={data}
-                margin={{ top: 70, right: 50, left: 40, bottom: 0 }}>
-                <CartesianAxis />
-                <XAxis dataKey={"timing"} axisLine={false} tickLine={false} />
+        <LineChart width={750} height={200} data={data}
+            margin={{ top: 70, right: 50, left: 40, bottom: 0 }}>
+            <CartesianAxis />
+            <XAxis dataKey={"timing"} axisLine={false} tickLine={false} />
 
-                <Line type="natural" dataKey="uv" stroke="#ffa500" strokeWidth={4} dot={{ strokeWidth: 2, fill: "orange" }}>
-                    <LabelList dataKey={"name"} position={"top"} offset={45} stroke={dBlue} className="h4" fill="" />
-                </Line>
-            </LineChart>
-        </ResponsiveContainer>
+            <Line type="natural" dataKey="uv" stroke="#ffa500" strokeWidth={4} dot={{ strokeWidth: 2, fill: "orange" }}>
+                <LabelList dataKey={"name"} position={"top"} offset={45} stroke={dBlue} className="h4" fill="" />
+            </Line>
+        </LineChart>
     );
 }
 
@@ -104,17 +106,18 @@ const MainStatBox = (content) => {
     )
 }
 const LeftBox = ({ wthrData }) => {
+    const today = format(new Date(wthrData.current.last_updated), 'maskOne');
     return (
         <div className="" style={{ "height": "100%" }}>
             <div className="row m-auto">
 
-                <MainStatBox name="Weather" subname="What's the weather" reading={wthrData.current.temp_c} readsub={wthrData.current.condition.text} bg={sunBg} icon="fa-cloud-sun fa-xl" pressure={wthrData.current.pressure_mb} humidity={wthrData.current.humidity} visibility={wthrData.current.vis_km} />
+                <MainStatBox name="Weather" subname={`Today ${today}`} reading={wthrData.current.temp_c} readsub={wthrData.current.condition.text} bg={sunBg} icon="fa-cloud-sun fa-xl" pressure={wthrData.current.pressure_mb} humidity={wthrData.current.humidity} visibility={wthrData.current.vis_km} />
                 <MainStatBox name="Air Quality" subname="Main Pollution: PM2.5" reading={wthrData.current.wind_kph} readsub={wd.wind_dir[wthrData.current.wind_dir]} bg={windBg} icon="fa-wind fa-xl" air="true" airIndex={wthrData.current.air_quality} />
             </div>
             <div className="row m-auto">
                 <div className="col-7 m-auto rounded-4" style={{ height: "23rem" }}>
                     <div className="row">
-                        <div className="col-5 fs-3" style={{ fontWeight: 600 }}>
+                        <div className="col-6 fs-3" style={{ fontWeight: 600 }}>
                             How's the temperature today?
                         </div>
                         {/* <div className="row">
@@ -125,16 +128,16 @@ const LeftBox = ({ wthrData }) => {
                             </div>
                         </div> */}
                     </div>
-                    <div className="row mt-5 pt-4">
+                    <div className="row mt-5">
                         <RenderLineChart foreData={wthrData.forecast.forecastday[0].hour} />
                     </div>
                 </div>
-                <div className="row col-3 m-auto rounded-4 shadow"
+                <div className="row col-3 m-auto rounded-4 shadow "
                     style={{
                         height: "23rem", background: "greenyellow", backgroundImage: `url(${sceneBg})`, color: { dBlue }
                     }}>
                     <div className="h6 m-auto">Tomorrow</div>
-                    <div className="h3 fw-semibold mt-0">Alam Barzah</div>
+                    <div className="h3 fw-semibold mt-0">{format(new Date(wthrData.forecast.forecastday[1].date), 'maskOne')}</div>
                     <div className="h2 m-auto mb-0">{wthrData.forecast.forecastday[1].day.avgtemp_c}°C</div>
                     <div className="h6 m-auto mt-2">{wthrData.forecast.forecastday[1].day.condition.text}</div>
                 </div>

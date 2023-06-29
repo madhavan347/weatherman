@@ -14,15 +14,13 @@ const TopBar = ({ changeData }) => {
         changeData(result);
     }
     return (
-        <div className="left-top-box">
+        <div className="left-top-box mt-3">
 
-            <div className="row p-3 mx-4 top-bar">
+            <div className="row p-3 mx-5 top-bar">
                 <div className="col-8 m-auto">
                     <div className='input-group'>
-                        <img src="https://ouch-cdn2.icons8.com/2Cuo9HYTII6I8gBSie5nqQ9BiFH5zb7ffyWAu94ldAc/rs:fit:256:256/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvNDA3/LzY2YWY1NTEyLWEy/NDctNDlmZS1hODli/LTg4MDdkNTg3N2Nj/Yi5wbmc.png" alt="" className='rounded-circle border img-thumbnail m-2' width="50px" />
                         <h3>
-                            Hello,<br />
-                            <small className="text-body-secondary">Charmer</small>
+                            <span className="text-body-secondary">Weather</span>Man
                         </h3>
                     </div>
                 </div>
