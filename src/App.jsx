@@ -4,27 +4,31 @@ import RightBox from './comps/rightBox';
 import LeftBox from './comps/leftBox';
 import { useState } from 'react';
 
-import one from "../scOne.json";
+import WelcomeBox from "./comps/welcomeBox";
 
 const App = () => {
-  const [dta, setDta] = useState(one.wapi);
+  const [dta, setDta] = useState(null);
   // console.log(dta);`
 
   return (
     <>
-      <div className="row">
+      {dta ?
+        <div className="row">
 
-        <div className="col-9 left-box" style={{ paddingRight: "0px" }}>
-          <TopBar changeData={(dd) => setDta(dd)} />
-          <div className="left-bottom-box">
-            <LeftBox wthrData={dta} />
+          <div className="col-9 left-box" style={{ paddingRight: "0px" }}>
+            <TopBar changeData={(dd) => setDta(dd)} />
+            <div className="left-bottom-box">
+              <LeftBox wthrData={dta} />
+            </div>
+          </div>
 
+          <div className="col-3 right-box">
+            <RightBox wthrData={dta} />
           </div>
         </div>
-        <div className="col-3 right-box">
-          <RightBox wthrData={dta} />
-        </div>
-      </div>
+        :
+        <WelcomeBox changeData={(dd) => setDta(dd)} />
+      }
     </>
   )
 }

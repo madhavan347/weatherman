@@ -13,7 +13,6 @@ export const handleSearchNameReq = async (city, limit = 1) => {
         const data = await resp.json();
         if (data.length) {
             // console.log(data.length);
-
             return data.map((d) => {
                 return { name: d.name, state: d.state, country: d.country, lat: d.lat, lon: d.lon }
             });
@@ -21,8 +20,7 @@ export const handleSearchNameReq = async (city, limit = 1) => {
         throw new Error('City not FOUND');
     } catch (err) {
         // console.log(err);
-        // console.error();
-        return err.message;
+        return null;
     }
 }
 
@@ -34,6 +32,6 @@ export const handleFinalSearch = async (lat, lon) => {
         // console.log(data)
         return data;
     } catch (err) {
-        return err.message;
+        return null;
     }
 }

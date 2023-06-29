@@ -1,17 +1,19 @@
 import { handleSearchNameReq, handleFinalSearch } from './apiBed.jsx'
 const TopBar = ({ changeData }) => {
     const handleSearchInput = async (q) => {
-        //need to add auto completion feature
-        // setIsQ(q);
+        //need to add autocompletion feature here
         const result = await handleSearchNameReq(q.target.value, 5);
-        // console.log(result);
     }
     const handleSearching = async (qd) => {
         qd.preventDefault();
         const queryCity = await handleSearchNameReq(qd.target.q.value);
-        const result = await handleFinalSearch(queryCity[0]['lat'], queryCity[0]['lon']);
-        // console.log(result);
-        changeData(result);
+        if (queryCity == null) {
+            qd.target.q.classList.add('is-invalid')
+        } else {
+            qd.target.q.classList.remove('is-invalid')
+            const result = await handleFinalSearch(queryCity[0]['lat'], queryCity[0]['lon']);
+            changeData(result);
+        }
     }
     return (
         <div className="left-top-box mt-3">
@@ -26,11 +28,14 @@ const TopBar = ({ changeData }) => {
                 </div>
                 <div className="col-3 m-auto">
                     <form onSubmit={data => handleSearching(data)}>
-                        <div className="input-group">
-                            <input className='form-control bg-light border-light' type="search" name="q" id="queryBar" onChange={e => handleSearchInput(e)} />
-                            <span className="input-group-text border-light" id="basic-addon1">🔍</span>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control bg-light border-light" id="validationServerUsername" onChange={e => handleSearchInput(e)} name='q' required />
+                            <span class="input-group-text border-light" id="inputGroupPrepend3">🔍</span>
+
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                Please enter a valid city
+                            </div>
                         </div>
-                        {/* <button className='btn btn-outline-dark' type="submit">Search</button> */}
                     </form>
                 </div>
                 <div className="col-1 m-auto p-auto ">
