@@ -1,20 +1,24 @@
 import sunImg from "../assets/weather-icons/cartoon-sun-icon.png"
-
-const WFBox = (wd) => {
+import { format, setGlobalDateMasks } from "fecha"
+setGlobalDateMasks({
+    maskOne: 'MMM D ddd'
+})
+const WFBox = ({ content }) => {
+    const predictionDate = format(new Date(content.date), 'maskOne');
     return (
         <div className="row rounded-5 shadow-sm mx-auto my-2 p-2 border bg-white border-0">
 
             <div className="col-3 m-auto">
-                <img src={`http://openweathermap.org/img/w/${wd.icon}.png`} width={"70px"} alt="" />
+                <img src={`http://${content.day.condition.icon}`} width={"70px"} alt="" />
             </div>
 
             <div className="col-6 m-auto">
-                <div className="lead text-body-secondary" style={{ fontSize: "1rem", }}>{wd.date}</div>
-                <div className="h5">{wd.main}</div>
+                <div className="lead text-body-secondary" style={{ fontSize: "1rem", }}>{predictionDate}</div>
+                <div className="h5">{content.day.condition.text}</div>
             </div>
 
             <div className="col-3 m-auto" style={{ color: "orange", }}>
-                <div className="h5">{wd.temp}°C</div>
+                <div className="h5">{content.day.avgtemp_c}°C</div>
             </div>
         </div >
     )
@@ -32,7 +36,7 @@ const UVBox = ({ uv }) => {
             break;
         case (uv <= 8):
             rating = "High"
-            color = "darkorange";
+            color = "orange";
             break;
         case (uv <= 10):
             rating = "Very High"
@@ -60,6 +64,21 @@ const UVBox = ({ uv }) => {
     )
 }
 
+const RSinfo = ({ img = null, rise = "Rise", set = "Set" }) => {
+    return (
+        <div className="row text-center">
+            <div className="col text-start">
+                <img src={img} width={"80px"} alt="" />
+            </div>
+            <div className="col py-4">
+                {rise}
+            </div>
+            <div className="col py-4">
+                {set}
+            </div>
+        </div>)
+}
+
 const RightBox = ({ wthrData }) => {
     return (
         <div className="row px-5 py-4 rounded bg-light">
@@ -71,29 +90,15 @@ const RightBox = ({ wthrData }) => {
                         <small className="text-body-secondary">{`${wthrData.location.name}, ${wthrData.location.country}`}</small>
                     </blockquote>
                 </div>
-                <div className="col-3 font-monospace display-6" style={{ "color": "orange" }}>
+                <div className="col-3 display-6" style={{ "color": "orange" }}>
                     {wthrData.current.temp_c}°C
                 </div>
             </div>
             <hr />
 
-            <div className="card m-auto p-0">
-                <div className="card-body" style={{ "height": "10rem" }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 55">
-                        <defs>
-                            <linearGradient id="semi-circle">
-                                {/* below offset % describes the fill percentage- try to put in sep comp - add st time and en time and curr time pos */}
-                                <stop offset="15%" stopColor="orange" />
-                                <stop offset="0%" stopColor="white" />
-                                <stop offset="100%" stopColor="white" />
-                            </linearGradient>
-                        </defs>
-                        <path d="M0,50 A50,49 0 0,1 100,50 A50,50 0 0,1 0" fill="url(#semi-circle)" stroke="orange" strokeDasharray="3,3"
-                            strokeWidth="1.5" width={200} height={100} />
-                        <text x="-10" y="55" className="text-bold" fontSize="6px">Sunrise</text>
-                        <text x="90" y="55" className="text-bold" fontSize="6px">Sunset</text>
-                    </svg>
-                </div>
+            <div className="m-auto">
+                <RSinfo />
+                <RSinfo rise={wthrData.forecast.forecastday[0].astro.sunrise} set={wthrData.forecast.forecastday[0].astro.sunset} img={sunImg} />
             </div>
 
             <UVBox uv={wthrData.current.uv} />
@@ -102,9 +107,9 @@ const RightBox = ({ wthrData }) => {
                 Weather Prediction
             </div>
 
-            <WFBox icon="50n" main={wthrData.forecast.forecastday[1].day.condition.text} temp={wthrData.forecast.forecastday[1].day.avgtemp_c} date={wthrData.forecast.forecastday[1].date} />
-            <WFBox icon="10n" main={wthrData.forecast.forecastday[2].day.condition.text} temp={wthrData.forecast.forecastday[2].day.avgtemp_c} date={wthrData.forecast.forecastday[2].date} />
-            <WFBox icon="10n" main={wthrData.forecast.forecastday[3].day.condition.text} temp={wthrData.forecast.forecastday[3].day.avgtemp_c} date={wthrData.forecast.forecastday[3].date} />
+            <WFBox content={wthrData.forecast.forecastday[1]} />
+            <WFBox content={wthrData.forecast.forecastday[2]} />
+            <WFBox content={wthrData.forecast.forecastday[3]} />
 
 
         </div >
