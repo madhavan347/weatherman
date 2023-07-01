@@ -28,21 +28,21 @@ const TopBar = ({ changeData }) => {
                 </div>
                 <div className="col-3 m-auto">
                     <form onSubmit={data => handleSearching(data)}>
-                        <div class="input-group has-validation">
-                            <input type="text" class="form-control bg-light border-light" id="validationServerUsername" onChange={e => handleSearchInput(e)} name='q' required />
-                            <span class="input-group-text border-light" id="inputGroupPrepend3">🔍</span>
+                        <div className="input-group has-validation">
+                            <input type="text" className="form-control bg-light border-light" id="validationServerUsername" onChange={e => handleSearchInput(e)} name='q' required />
+                            <span className="input-group-text border-light" id="inputGroupPrepend3">🔍</span>
 
-                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            <div id="validationServerUsernameFeedback" className="invalid-feedback">
                                 Please enter a valid city
                             </div>
                         </div>
                     </form>
                 </div>
-                <div className="col-1 m-auto p-auto ">
+                {/* <div className="col-1 m-auto p-auto ">
                     <button className="btn btn-white border border-light border-2 rounded-circle">
                         🔔
                     </button>
-                </div>
+                </div> */}
             </div>
         </div>
     )
