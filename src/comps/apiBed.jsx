@@ -25,7 +25,7 @@ export const handleSearchNameReq = async (city, limit = 1) => {
 }
 
 export const handleFinalSearch = async (lat, lon) => {
-    const url = `https://api.weatherapi.com/v1/forecast.json?key=${appid_wa}&q=${lat},${lon}&days=4&aqi=yes&alerts=no`
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${appid_wa}&q=${lat},${lon}&days=5&aqi=yes&alerts=no`
     try {
         const resp = await fetch(url);
         const data = await resp.json();

@@ -13,9 +13,9 @@ const App = () => {
   return (
     <>
       {dta ?
-        <div className="row">
+        <div className="row bg-light">
 
-          <div className="col-9 left-box" style={{ paddingRight: "0px" }}>
+          <div className="col-9 left-box bg-white" style={{ paddingRight: "0px" }}>
             <TopBar changeData={(dd) => setDta(dd)} />
             <div className="left-bottom-box">
               <LeftBox wthrData={dta} />

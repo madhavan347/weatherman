@@ -1,4 +1,5 @@
 import sunImg from "../assets/weather-icons/cartoon-sun-icon.png"
+
 import { format, setGlobalDateMasks } from "fecha"
 setGlobalDateMasks({
     maskOne: 'MMM D ddd'
@@ -9,7 +10,7 @@ const WFBox = ({ content }) => {
         <div className="row rounded-5 shadow-sm mx-auto my-2 p-2 border bg-white border-0">
 
             <div className="col-3 m-auto">
-                <img src={`http://${content.day.condition.icon}`} width={"70px"} alt="" />
+                <img src={`https://${content.day.condition.icon}`} width={"70px"} alt="" />
             </div>
 
             <div className="col-6 m-auto">
@@ -107,11 +108,9 @@ const RightBox = ({ wthrData }) => {
                 Weather Prediction
             </div>
 
-            <WFBox content={wthrData.forecast.forecastday[1]} />
             <WFBox content={wthrData.forecast.forecastday[2]} />
             <WFBox content={wthrData.forecast.forecastday[3]} />
-
-
+            <WFBox content={wthrData.forecast.forecastday[4]} />
         </div >
     )
 }

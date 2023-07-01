@@ -3,7 +3,7 @@ const WelcomeBox = ({ changeData }) => {
     const handleSearchInput = async (q) => {
         //need to add auto completion feature here
         const result = await handleSearchNameReq(q.target.value, 5);
-        console.log(result);
+        // console.log(result);
     }
     const handleSearching = async (qd) => {
         qd.preventDefault();
