@@ -52,7 +52,7 @@ const UVBox = ({ uv }) => {
         <div className="card shadow my-5 mx-auto rounded-5 p-2 px-1" style={{ background: "#102038", color: "#ffffff" }} >
             <div className="card-body row">
                 <div className="col-3 p-0 m-0" >
-                    <img src={sunImg} width={"80px"} alt="" />
+                    <img width={"80px"} alt="" />
                 </div>
                 <div className="col-9">
                     <h4 className="lead">

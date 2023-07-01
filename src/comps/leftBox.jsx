@@ -1,9 +1,7 @@
-import sunBg from "../assets/weather-images/sun-sky.jpg"
-import windBg from "../assets/weather-images/wind-img2.jpg"
-import sceneBg from "../assets/weather-images/some-scene.jpg"
 import { LineChart, Line, LabelList, XAxis, CartesianAxis } from "recharts";
 import wd from "../../weather_info.json";
 import { format, setGlobalDateMasks } from "fecha"
+
 setGlobalDateMasks({
     maskOne: 'MMM D ddd'
 })
@@ -62,7 +60,7 @@ const StatBox = (info) => {
 const MainStatBox = (content) => {
     // console.log()
     return (
-        <div className="col-5 card my-5 mx-auto rounded-4 p-auto border-0 shadow" style={{ backgroundImage: `url(${content.bg})`, backgroundSize: "110%" }}>
+        <div className="col-5 card my-4 mx-auto rounded-4 p-auto border-0 shadow">
 
             <div className='row'>
                 <i className={`align-items-middle col-1 my-4 fa-solid ${content.icon}`} style={{ color: "orange" }}></i>
@@ -109,7 +107,7 @@ const TweatherBox = ({ content }) => {
     return (
         <div className="row col-3 m-auto rounded-4 shadow "
             style={{
-                height: "23rem", background: "greenyellow", backgroundImage: `url(${sceneBg})`, color: { dBlue }
+                height: "23rem", background: "greenyellow", color: { dBlue }
             }}>
             <div className="h6 m-auto">Tomorrow</div>
             <div className="h3 fw-semibold mt-0">{format(new Date(content.date), 'maskOne')}</div>
@@ -121,11 +119,11 @@ const TweatherBox = ({ content }) => {
 const LeftBox = ({ wthrData }) => {
     const today = format(new Date(wthrData.current.last_updated), 'maskOne');
     return (
-        <div className="" style={{ "height": "100%" }}>
-            <div className="row m-auto">
+        <div className="">
+            <div className="row m-auto mb-3">
 
-                <MainStatBox name="Weather" subname={`Today ${today}`} reading={wthrData.current.temp_c} readsub={wthrData.current.condition.text} bg={sunBg} icon="fa-cloud-sun fa-xl" pressure={wthrData.current.pressure_mb} humidity={wthrData.current.humidity} visibility={wthrData.current.vis_km} />
-                <MainStatBox name="Air Quality" subname="Main Pollution: PM2.5" reading={wthrData.current.wind_kph} readsub={wd.wind_dir[wthrData.current.wind_dir]} bg={windBg} icon="fa-wind fa-xl" air="true" airIndex={wthrData.current.air_quality} />
+                <MainStatBox name="Weather" subname={`Today ${today}`} reading={wthrData.current.temp_c} readsub={wthrData.current.condition.text} icon="fa-cloud-sun fa-xl" pressure={wthrData.current.pressure_mb} humidity={wthrData.current.humidity} visibility={wthrData.current.vis_km} />
+                <MainStatBox name="Air Quality" subname="Main Pollution: PM2.5" reading={wthrData.current.wind_kph} readsub={wd.wind_dir[wthrData.current.wind_dir]} icon="fa-wind fa-xl" air="true" airIndex={wthrData.current.air_quality} />
             </div>
 
             <div className="row m-auto">
