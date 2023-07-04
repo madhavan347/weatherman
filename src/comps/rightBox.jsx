@@ -1,11 +1,14 @@
 import sunImg from "../assets/weather-icons/cartoon-sun-icon.png"
 
-import { format, setGlobalDateMasks } from "fecha"
-setGlobalDateMasks({
-    maskOne: 'MMM D ddd'
-})
+function formatDate(date) {
+    const dt = new Intl.DateTimeFormat(
+        'en',
+        { day: 'numeric', month: 'short', weekday: 'short' }
+    ).format(date);
+    return dt.replace(',', '');
+}
 const WFBox = ({ content }) => {
-    const predictionDate = format(new Date(content.date), 'maskOne');
+    const predictionDate = formatDate(new Date(content.date));
     return (
         <div className="row rounded-5 shadow-sm mx-auto my-2 p-2 border bg-white border-0">
 

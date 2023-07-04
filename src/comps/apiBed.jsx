@@ -1,7 +1,5 @@
-import { creds_owm, creds_wa } from "../creds";
-
-const appid = creds_owm;
-const appid_wa = creds_wa;
+const appid = import.meta.env.VITE_OWM_API;
+const appid_wa = import.meta.env.VITE_WA_API;
 
 export const handleSearchNameReq = async (city, limit = 1) => {
     if (city == false) {

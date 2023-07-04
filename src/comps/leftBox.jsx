@@ -1,11 +1,13 @@
 import { LineChart, Line, LabelList, XAxis, CartesianAxis } from "recharts";
 import wd from "../../weather_info.json";
-import { format, setGlobalDateMasks } from "fecha"
 
-setGlobalDateMasks({
-    maskOne: 'MMM D ddd'
-})
-
+function formatDate(date) {
+    const dt = new Intl.DateTimeFormat(
+        'en',
+        { day: 'numeric', month: 'short', weekday: 'short' }
+    ).format(date);
+    return dt.replace(',', '');
+}
 const dBlue = "#102038";
 
 const RenderLineChart = ({ foreData }) => {
@@ -110,14 +112,14 @@ const TweatherBox = ({ content }) => {
                 height: "23rem", background: "greenyellow", color: { dBlue }
             }}>
             <div className="h6 m-auto">Tomorrow</div>
-            <div className="h3 fw-semibold mt-0">{format(new Date(content.date), 'maskOne')}</div>
+            <div className="h3 fw-semibold mt-0">{formatDate(new Date(content.date))}</div>
             <div className="h2 m-auto mb-0">{content.day.avgtemp_c}°C</div>
             <div className="h6 m-auto mt-2">{content.day.condition.text}</div>
         </div>
     )
 }
 const LeftBox = ({ wthrData }) => {
-    const today = format(new Date(wthrData.current.last_updated), 'maskOne');
+    const today = formatDate(new Date(wthrData.current.last_updated));
     return (
         <div className="">
             <div className="row m-auto mb-3">
