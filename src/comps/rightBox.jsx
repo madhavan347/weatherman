@@ -111,9 +111,9 @@ const RightBox = ({ wthrData }) => {
                 Weather Prediction
             </div>
 
+            <WFBox content={wthrData.forecast.forecastday[1]} />
             <WFBox content={wthrData.forecast.forecastday[2]} />
-            <WFBox content={wthrData.forecast.forecastday[3]} />
-            <WFBox content={wthrData.forecast.forecastday[4]} />
+            {/* <WFBox content={wthrData.forecast.forecastday[4]} /> */}
         </div >
     )
 }
