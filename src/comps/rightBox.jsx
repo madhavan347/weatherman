@@ -7,10 +7,10 @@ function formatDate(date) {
     ).format(date);
     return dt.replace(',', '');
 }
-const WFBox = ({ content }) => {
+export const WFBox = ({ content }) => {
     const predictionDate = formatDate(new Date(content.date));
     return (
-        <div className="row rounded-5 shadow-sm mx-auto my-2 p-2 border bg-white border-0">
+        <div className="row rounded-5 shadow-sm mx-auto my-3 p-2 border bg-white border-0">
 
             <div className="col-3 m-auto">
                 <img src={`https://${content.day.condition.icon}`} width={"70px"} alt="" />
@@ -52,7 +52,7 @@ const UVBox = ({ uv }) => {
             break;
     }
     return (
-        <div className="card shadow my-5 mx-auto rounded-5 p-2 px-1" style={{ background: "#102038", color: "#ffffff" }} >
+        <div className="card shadow my-md-5 my-3 mx-auto rounded-5 p-2 px-1" style={{ background: "#102038", color: "#ffffff" }} >
             <div className="card-body row">
                 <div className="col-3 p-0 m-0" >
                     <img width={"80px"} alt="" />
@@ -85,16 +85,16 @@ const RSinfo = ({ img = null, rise = "Rise", set = "Set" }) => {
 
 const RightBox = ({ wthrData }) => {
     return (
-        <div className="row px-5 py-4 rounded bg-light">
+        <div className="row px-lg-4 px-4 py-4 rounded">
             <div className="info-box row m-auto">
-                <div className="col-7">
+                <div className="col-lg-7 col-6">
                     <blockquote style={{ fontSize: "1.15rem" }}>
                         {wthrData.current.is_day ? "Sun" : "Night"}
                         <br />
                         <small className="text-body-secondary">{`${wthrData.location.name}, ${wthrData.location.country}`}</small>
                     </blockquote>
                 </div>
-                <div className="col-3 display-6" style={{ "color": "orange" }}>
+                <div className="col-6 col-lg-5 display-6 text-end" style={{ "color": "orange" }}>
                     {wthrData.current.temp_c}°C
                 </div>
             </div>
@@ -106,14 +106,14 @@ const RightBox = ({ wthrData }) => {
             </div>
 
             <UVBox uv={wthrData.current.uv} />
+            <div className="d-none d-lg-block">
+                <div className=" h2 mx-auto p-2" style={{ "width": "auto" }}>
+                    Weather Prediction
+                </div>
 
-            <div className=" h2 mx-auto p-2" style={{ "width": "auto" }}>
-                Weather Prediction
+                <WFBox content={wthrData.forecast.forecastday[1]} />
+                <WFBox content={wthrData.forecast.forecastday[2]} />
             </div>
-
-            <WFBox content={wthrData.forecast.forecastday[1]} />
-            <WFBox content={wthrData.forecast.forecastday[2]} />
-            {/* <WFBox content={wthrData.forecast.forecastday[4]} /> */}
         </div >
     )
 }

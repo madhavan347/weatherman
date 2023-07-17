@@ -1,5 +1,5 @@
 import { handleSearchNameReq, handleFinalSearch } from './apiBed.jsx'
-const TopBar = ({ changeData }) => {
+const TopBar = ({ changeData, classDetails }) => {
     const handleSearchInput = async (q) => {
         //need to add autocompletion feature here
         const result = await handleSearchNameReq(q.target.value, 5);
@@ -16,17 +16,15 @@ const TopBar = ({ changeData }) => {
         }
     }
     return (
-        <div className="left-top-box mt-3">
+        <div className={`left-top-box mt-3 ${classDetails}`}>
 
-            <div className="row p-3 mx-5 top-bar">
-                <div className="col-8 m-auto">
-                    <div className='input-group'>
-                        <h3>
-                            <span className="text-body-secondary">Weather</span>Man
-                        </h3>
-                    </div>
+            <div className="row p-3 mx-lg-5 top-bar">
+                <div className="col-lg-8 m-auto text-lg-start text-center">
+                    <h3>
+                        <span className="text-body-secondary">Weather</span>Man
+                    </h3>
                 </div>
-                <div className="col-3 m-auto">
+                <div className="col-lg-3 m-auto">
                     <form onSubmit={data => handleSearching(data)}>
                         <div className="input-group has-validation">
                             <input type="text" className="form-control bg-light border-light" id="validationServerUsername" onChange={e => handleSearchInput(e)} name='q' required />

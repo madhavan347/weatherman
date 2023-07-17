@@ -1,5 +1,6 @@
 import { LineChart, Line, LabelList, XAxis, CartesianAxis } from "recharts";
 import wd from "../../weather_info.json";
+import { WFBox } from "./rightBox";
 
 function formatDate(date) {
     const dt = new Intl.DateTimeFormat(
@@ -49,7 +50,7 @@ const RenderLineChart = ({ foreData }) => {
 
 const StatBox = (info) => {
     return (
-        <div className="col-3 shadow rounded-4 text-center p-3 mx-auto" style={{ background: `${info.bgcolor}` }}>
+        <div className="col-md-3 col shadow rounded-4 text-center p-md-3 p-2 mx-1 mx-md-auto" style={{ background: `${info.bgcolor}` }}>
             <div className="" style={{ color: `${info.color}` }}>
                 {info.title}
                 <div className="h4 m-auto fw-medium " style={{ color: `${info.color}` }}>
@@ -62,11 +63,11 @@ const StatBox = (info) => {
 const MainStatBox = (content) => {
     // console.log()
     return (
-        <div className="col-5 card my-4 mx-auto rounded-4 p-auto border-0 shadow">
+        <div className="col-lg-5 card my-4 rounded-4 p-auto mx-lg-auto border-0 shadow">
 
             <div className='row'>
-                <i className={`align-items-middle col-1 my-4 fa-solid ${content.icon}`} style={{ color: "orange" }}></i>
-                <div className="h4 col-6">
+                <i className={`align-items-middle col-1 my-4 mx-2 fa-solid ${content.icon}`} style={{ color: "orange" }}></i>
+                <div className="h4 col-md-6 col-10">
                     {content.name}<br />
                     <small className="text-body-secondary h6">{content.subname}</small>
                 </div>
@@ -107,7 +108,7 @@ const MainStatBox = (content) => {
 }
 const TweatherBox = ({ content }) => {
     return (
-        <div className="row col-3 m-auto rounded-4 shadow "
+        <div className="row col-3 m-auto rounded-4 shadow d-none d-lg-flex"
             style={{
                 height: "23rem", background: "greenyellow", color: { dBlue }
             }}>
@@ -121,15 +122,15 @@ const TweatherBox = ({ content }) => {
 const LeftBox = ({ wthrData }) => {
     const today = formatDate(new Date(wthrData.current.last_updated));
     return (
-        <div className="">
-            <div className="row m-auto mb-3">
+        <>
+            <div className="row m-lg-auto mx-1 px-lg-0 px-2 mb-3">
 
                 <MainStatBox name="Weather" subname={`Today ${today}`} reading={wthrData.current.temp_c} readsub={wthrData.current.condition.text} icon="fa-cloud-sun fa-xl" pressure={wthrData.current.pressure_mb} humidity={wthrData.current.humidity} visibility={wthrData.current.vis_km} />
                 <MainStatBox name="Air Quality" subname="Main Pollution: PM2.5" reading={wthrData.current.wind_kph} readsub={wd.wind_dir[wthrData.current.wind_dir]} icon="fa-wind fa-xl" air="true" airIndex={wthrData.current.air_quality} />
             </div>
 
-            <div className="row m-auto">
-                <div className="col-7 m-auto rounded-4" style={{ height: "23rem" }}>
+            <div className="row m-auto d-none d-md-flex">
+                <div className="col-lg-7 m-auto rounded-4" style={{ height: "23rem" }}>
                     <div className="row">
                         <div className="col-6 fs-3" style={{ fontWeight: 600 }}>
                             How's the temperature today?
@@ -141,8 +142,18 @@ const LeftBox = ({ wthrData }) => {
                 </div>
 
                 <TweatherBox content={wthrData.forecast.forecastday[1]} />
+
             </div>
-        </div >
+            <div className="d-block d-lg-none mb-4">
+                <div className=" h2 mx-auto p-2 text-center" style={{ "width": "auto" }}>
+                    Weather Prediction
+                </div>
+
+                <WFBox content={wthrData.forecast.forecastday[1]} />
+                <WFBox content={wthrData.forecast.forecastday[2]} />
+            </div>
+
+        </>
     )
 }
 

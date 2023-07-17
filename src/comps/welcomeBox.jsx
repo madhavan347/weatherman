@@ -19,17 +19,26 @@ const WelcomeBox = ({ changeData }) => {
     return (
         <>
             <div className="position-absolute top-50 start-50 translate-middle">
-                <br />
-                <h1 className='display-3'>Welcome to <span className="text-body-secondary">Weather</span>Man!</h1>
-                <br />
-                <form onSubmit={data => handleSearching(data)}>
-                    <div className="input-group border rounded-5">
-                        <input className='form-control bg-light border-light rounded-5 rounded-end' type="search" name="q" id="queryBar" onChange={e => handleSearchInput(e)} />
-                        <span className="input-group-text border-light rounded-5 rounded-start" id="basic-addon1">🔍</span>
-
-                    </div>
+                <div className="row text-center vw-100">
                     <br />
-                </form>
+                    <div className="col-lg-12">
+                        <h1 className='display-3'><span className="text-body-secondary">Weather</span>Man</h1>
+                        <br />
+                    </div>
+                    <div className="col-lg-3"></div>
+                    <div className="col-lg-6">
+                        <form onSubmit={data => handleSearching(data)}>
+                            <div className="input-group border rounded-5">
+                                <input className='form-control bg-light border-light rounded-5 rounded-end' type="search" name="q" id="queryBar" onChange={e => handleSearchInput(e)} />
+                                <span className="input-group-text border-light rounded-5 rounded-start" id="basic-addon1">🔍</span>
+
+                            </div>
+                            <br />
+                        </form>
+                    </div>
+                    <div className="col-lg-3"></div>
+
+                </div>
             </div>
         </>
     )

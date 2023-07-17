@@ -13,16 +13,17 @@ const App = () => {
   return (
     <>
       {dta ?
-        <div className="row bg-light">
+        <div className="row bg-md-cm-light">
+          <TopBar changeData={(dd) => setDta(dd)} classDetails="bg-white d-block d-lg-none" />
 
-          <div className="col-9 left-box bg-white" style={{ paddingRight: "0px" }}>
-            <TopBar changeData={(dd) => setDta(dd)} />
+          <div className="col-lg-9 left-box bg-white order-lg-first order-last" style={{ paddingRight: "0px" }}>
+            <TopBar changeData={(dd) => setDta(dd)} classDetails="d-none d-lg-block" />
             <div className="left-bottom-box">
               <LeftBox wthrData={dta} />
             </div>
           </div>
 
-          <div className="col-3 right-box">
+          <div className="col-lg-3 right-box bg-light">
             <RightBox wthrData={dta} />
           </div>
         </div>
